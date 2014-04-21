@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>窗口标题显示页面路径</name>
+        <file>/../AllInOne.swf</file>
+        <start>ShowPathOnWindowTitle</start>
+        <shortcut>999</shortcut>
+        <intro>作者：itamt@qq.com 说明： 在窗口title上显示当前打开的页面路径</intro>
+        <autostart>true</autostart>
+    </plugin>
+</root>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="FlexBuildConfigurationManager" active="MornPlugins">
+    <configurations>
+      <configuration name="MornPlugins" target-platform="Desktop" main-class="AllInOne" output-file="AllInOne.swf" output-folder="$MODULE_DIR$/../MornUIBuilder/plugins">
+        <dependencies target-player="11.9">
+          <entries>
+            <entry library-name="MornPluginLib" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="flex sdk 4.6" />
+        </dependencies>
+        <compiler-options />
+        <packaging-air-desktop package-file-name="MornPlugins" />
+        <packaging-android />
+        <packaging-ios />
+      </configuration>
+    </configurations>
+    <compiler-options />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/asset" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="flex sdk 4.6" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="MornPluginLib" level="project" />
+  </component>
+</module>
+

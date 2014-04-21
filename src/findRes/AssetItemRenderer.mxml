@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Label xmlns:mx="http://www.adobe.com/2006/mxml"
+          width="100%" toolTip=""
+          creationComplete="init()"
+          htmlText="{ _list.labelFunction( data ) }">
+
+    <mx:Script>
+		<![CDATA[
+        import morn.core.components.Styles;
+        import morn.core.utils.ObjectUtils;
+        import morn.core.utils.StringUtils;
+        import morn.editor.Sys;
+
+        import mx.controls.List;
+        import mx.controls.listClasses.ListBase;
+
+        [Embed(source="../../asset/FindResource/preview_bg.jpg")]
+        static private var PreviewBG:Class;
+        static private var PreviewBG_BMP:Bitmap;
+        static private var preview:Sprite;
+        static private var sizeLabel:TextField;
+
+        [Bindable]
+        protected var _list:List;
+
+
+        protected function init():void {
+            if (listData) {
+                _list = listData.owner as List;
+            }
+        }
+
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+            if (owner is ListBase && ListBase(owner).isItemSelected(data)) {
+                if (preview == null) {
+                    preview = new Sprite();
+                    PreviewBG_BMP = new PreviewBG();
+                    preview.addChild(PreviewBG_BMP);
+
+                    sizeLabel = new TextField();
+                    sizeLabel.autoSize = "left";
+                    sizeLabel.name = "size";
+                    var a:Array = StringUtils.fillArray(Styles.labelStroke, "0xffffff");
+                    ObjectUtils.addFilter(sizeLabel, new GlowFilter(a[0], a[1], a[2], a[3], a[4], a[5]));
+
+                    preview.addChild(sizeLabel);
+                }
+
+                var t:DisplayObject = preview.getChildByName("resource");
+                if (t) {
+                    preview.removeChild(t);
+                    if (t is MovieClip) {
+                        (t as MovieClip).stop();
+                        SoundMixer.stopAll();
+                    }
+                }
+
+                var res:* = Sys.getRes(String(data.@asset));
+                if (res) {
+                    var view:DisplayObject;
+                    if (res is BitmapData) {
+                        var bmp:Bitmap = new Bitmap();
+                        bmp.bitmapData = res;
+                        view = bmp;
+                    } else if (res is DisplayObject) {
+                        view = res;
+                    }
+
+                    sizeLabel.text = view.width + " × " + view.height;
+
+                    var scale:Number = Math.min((PreviewBG_BMP.width - 10) / view.width, (PreviewBG_BMP.height - 10) / view.height);
+                    if (scale >= 1) scale = 1;
+                    view.scaleX = view.scaleY = scale;
+                    view.x = (PreviewBG_BMP.width - view.width * scaleX) / 2;
+                    view.y = (PreviewBG_BMP.height - view.height * scaleY) / 2;
+                    view.name = "resource";
+
+                    preview.addChild(view);
+                    preview.x = 300;
+                    owner.addChild(preview);
+                } else if (owner.contains(preview)) {
+                    owner.removeChild(preview);
+                    sizeLabel.text = "";
+                }
+            }
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        ]]>
+	</mx:Script>
+
+</mx:Label>
