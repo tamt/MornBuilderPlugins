@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>打开页面(ctrl+shift+N)</name>
+        <file>/../AllInOne.swf</file>
+        <start>OpenPage</start>
+        <shortcut ctrl="true" shift="true">78</shortcut>
+        <intro>作者：itamt@qq.com 说明：方向键选择页面，shift+回车打开页面，返回键关闭</intro>
+    </plugin>
+</root>

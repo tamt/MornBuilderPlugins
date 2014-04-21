@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>Del键可删除资源</name>
+        <file>/../AllInOne.swf</file>
+        <start>DeleteResource</start>
+        <shortcut>999</shortcut>
+        <intro>作者：itamt@qq.com 说明： 在资源面板中按del键删除资源</intro>
+        <autostart>true</autostart>
+    </plugin>
+</root>

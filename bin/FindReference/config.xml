@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>查找引用(Alt+F7)</name>
+        <file>/../AllInOne.swf</file>
+        <start>FindReference</start>
+        <shortcut alt="true">118</shortcut>
+        <intro>作者：itamt@qq.com 说明： 1.显示资源的使用情况也可以查找。 2.查找显示没用的资源。</intro>
+    </plugin>
+</root>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>嵌入tInspector(ctrl+shift+T)</name>
+        <file>/../AllInOne.swf</file>
+        <start>tInspector</start>
+        <shortcut ctrl="true" shift="true">84</shortcut>
+        <intro>作者：itamt@qq.com</intro>
+    </plugin>
+</root>

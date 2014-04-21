@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>移动资源(Shift+F6)</name>
+        <file>/../AllInOne.swf</file>
+        <start>RefactorResource</start>
+        <shortcut shift="true">117</shortcut>
+        <intro><![CDATA[
+                作者：itamt@qq.com
+                移动、重命名资源
+                因为PluginBase没有提供刷新资源的API，所以插件通过派发F5按键来刷新资源。
+        ]]></intro>
+    </plugin>
+</root>

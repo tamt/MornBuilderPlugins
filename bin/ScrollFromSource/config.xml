@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>定位页面和资源(alt+F1)</name>
+        <file>/../AllInOne.swf</file>
+        <start>ScrollFromSource</start>
+        <shortcut alt="true">112</shortcut>
+        <autostart>true</autostart>
+        <intro><![CDATA[
+            作者：itamt@qq.com
+            执行顺序：
+            1.有选中资源时会定位资源面板。
+            2.有打页面时会定位页面面板。
+            3.无打开页面时会开/关资源面板和页面面板的定位功能按钮。
+        ]]></intro>
+    </plugin>
+</root>
