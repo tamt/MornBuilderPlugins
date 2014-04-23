@@ -23,6 +23,8 @@ public class AllInOne extends Sprite {
                     new RefactorResource,
                     new ScrollFromSource,
                     new ShowPathOnWindowTitle,
+                    new iPhonePreview,
+                    new RememberOpenedPages,
                     new tInspector
                 ];
             }

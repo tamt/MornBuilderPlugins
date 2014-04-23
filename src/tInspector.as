@@ -11,6 +11,7 @@ import cn.itamt.utils.inspector.core.structureview.StructureView;
 import cn.itamt.utils.inspector.plugins.controlbar.ControlBar;
 
 import flash.display.DisplayObjectContainer;
+import flash.geom.Point;
 
 import morn.editor.Plugin;
 
@@ -39,7 +40,9 @@ public class tInspector extends Plugin {
         inspector.init(DisplayObjectContainer(builderMain.root));
         inspector.pluginManager.registerPlugin(new ControlBar());
         inspector.pluginManager.registerPlugin(new PropertiesView());
-        inspector.pluginManager.registerPlugin(new StructureView());
+        var structure:StructureView = new StructureView();
+        structure.size = new Point(500, 600);
+        inspector.pluginManager.registerPlugin(structure);
         inspector.pluginManager.registerPlugin(new LiveInspectView());
 
         return Boolean(inspector);

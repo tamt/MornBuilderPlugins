@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>预览在iPhone中的尺寸(Alt+V)</name>
+        <file>/../AllInOne.swf</file>
+        <start>iPhonePreview</start>
+        <shortcut alt="true">86</shortcut>
+        <intro>作者：itamt@qq.com</intro>
+        <!--显示器的尺寸-->
+        <DisplayMonitorDiagonal>21.5</DisplayMonitorDiagonal>
+        <!--iPhone屏幕的ppi-->
+        <iPhoneScreenPPI>326</iPhoneScreenPPI>
+    </plugin>
+</root>

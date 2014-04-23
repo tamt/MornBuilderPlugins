@@ -13,7 +13,8 @@ MornBuilderPlugins
 - 打开页面(OpenPage)
 - 移动、重命名资源(RefactorResource)
 - 定位页面和资源(ScrollFromSource)
-- 窗口标题显示页面路径(ShowPathOnWindowTitle)
+- 预览页面在iPhone中的尺寸(iPhonePreview)
+- 显示上一次打开的页面(RememberOpenedPages)
 
 兼容MornBuilder版本
 ==================
@@ -77,6 +78,8 @@ MornBuilderPlugins
 
 ##ScrollFromSource
 
+    快捷键 Alt+F1
+
 在资源面板、页面面板中定位和选中当前资源、页面。
 在资源面板上，还有额外功能按钮：复制资源名称，和复制资源文件路径。
 
@@ -84,5 +87,14 @@ MornBuilderPlugins
 
 在MornBuilder的窗口标题栏上显示当前页面的路径，仅此而已。
 
+##iPhonePreview
+
+预览页面在iPhone(4/4s/5/5c/5s)上的尺寸，帮助我们设计适合玩家在iphone上操作的界面尺寸。原理很简单：根据显示器PPI与iPhone屏幕PPI比例缩放页面。
+你需要在iPhonePreview/config.xml中设置显示器的尺寸（英寸），默认是21.5。
+当然你也可以把iPhoneScreenPPI修改成其它手机屏幕PPI。
+
+##RememberOpenedPages
+
+在MornBuilder启动后，显示上一次打开的页面。
 
 

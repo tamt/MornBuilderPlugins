@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <plugin>
+        <name>显示上次打开的页面</name>
+        <file>/../AllInOne.swf</file>
+        <start>RememberOpenedPages</start>
+        <shortcut>999999</shortcut>
+        <autostart>true</autostart>
+        <lastPages></lastPages>
+        <intro>作者：itamt@qq.com，自动设置页面尺寸以匹配内容。</intro>
+    </plugin>
+</root>

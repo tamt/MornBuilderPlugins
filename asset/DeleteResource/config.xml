@@ -6,7 +6,6 @@
         <start>DeleteResource</start>
         <shortcut>999</shortcut>
         <intro>作者：itamt@qq.com 说明： 在资源面板中按del键删除资源</intro>
-        <!--MornBuilder开启后自启动-->
         <autostart>true</autostart>
     </plugin>
 </root>
