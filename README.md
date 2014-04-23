@@ -28,11 +28,11 @@ MornBuilderPlugins
 ==========
 你可以在每个插件的config.xml中添加 __autostart__ 配置来决定是否在MornBuilder开启后自启动。
 
-                <name>Del键可删除资源</name>
-                <file>/../AllInOne.swf</file>
-                <start>DeleteResource</start>
-                <!--MornBuilder开启后自启动-->
-                <autostart>true</autostart>
+    <name>Del键可删除资源</name>
+    <file>/../AllInOne.swf</file>
+    <start>DeleteResource</start>
+    <!--MornBuilder开启后自启动-->
+    <autostart>true</autostart>
 
 功能与说明
 =======
@@ -88,6 +88,8 @@ MornBuilderPlugins
 在MornBuilder的窗口标题栏上显示当前页面的路径，仅此而已。
 
 ##iPhonePreview
+
+    快捷键 Alt+V
 
 预览页面在iPhone(4/4s/5/5c/5s)上的尺寸，帮助我们设计适合玩家在iphone上操作的界面尺寸。原理很简单：根据显示器PPI与iPhone屏幕PPI比例缩放页面。
 你需要在iPhonePreview/config.xml中设置显示器的尺寸（英寸），默认是21.5。
