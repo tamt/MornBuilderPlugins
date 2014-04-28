@@ -7,6 +7,6 @@
         <shortcut>999999</shortcut>
         <autostart>true</autostart>
         <lastPages></lastPages>
-        <intro>作者：itamt@qq.com，自动设置页面尺寸以匹配内容。</intro>
+        <intro>作者：itamt@qq.com，显示上次打开的页面。</intro>
     </plugin>
 </root>

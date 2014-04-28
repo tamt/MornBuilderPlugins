@@ -17,9 +17,11 @@ public class Util {
     }
 
     static public function getResource(node:XML):String {
-        var result:*
+        var result:*;
         for each (var attr:XML in node.attributes()) {
             if (result = /(png|jpg|jpeg)\.(\w+\.)*[^\s"]+/ig.exec(attr.toString())) {
+                return result[0];
+            } else if (result = /frameclip_(\w+)*[^\s"]+/ig.exec(attr.toString())) {
                 return result[0];
             }
         }
