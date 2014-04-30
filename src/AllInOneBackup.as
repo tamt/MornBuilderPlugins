@@ -6,11 +6,11 @@
 package {
 import flash.display.Sprite;
 
-public class AllInOne extends Sprite {
+public class AllInOneBackup extends Sprite {
 
     private static var inited:Boolean;
 
-    public function AllInOne() {
+    public function AllInOneBackup() {
         if (!stage) {
             if (!inited) {
                 inited = true;
@@ -25,6 +25,7 @@ public class AllInOne extends Sprite {
                     new ShowPathOnWindowTitle,
                     new iPhonePreview,
                     new RememberOpenedPages,
+                    new AtlasGenerator,
                     new tInspector
                 ];
             }

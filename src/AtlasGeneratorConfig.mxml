@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+  Created by Administrator on 2014/4/30.
+-->
+<mx:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" width="250"
+                height="300">
+    <mx:Label></mx:Label>
+    <mx:TextInput></mx:TextInput>
+    <mx:CheckBox label="裁剪"></mx:CheckBox>
+    <mx:CheckBox label="裁剪"></mx:CheckBox>
+    <mx:CheckBox label="裁剪"></mx:CheckBox>
+</mx:TitleWindow>

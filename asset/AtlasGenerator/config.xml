@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<plugin>
+		<name>生成atlas(Ctrl+F12)</name>
+		<file>/../AllInOne.swf</file>
+		<start>AtlasGenerator</start>
+		<shortcut ctrl="true">123</shortcut>
+		<intro>作者：itamt@qq.com，生成atlas。</intro>
+        <python>C:/Python27/python.exe</python>
+        <texturesize>2600</texturesize>
+	</plugin>
+</root>
