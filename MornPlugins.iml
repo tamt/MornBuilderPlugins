@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="MornPlugins">
     <configurations>
-      <configuration name="MornPlugins" target-platform="Desktop" main-class="AllInOne" output-file="AllInOne.swf" output-folder="$MODULE_DIR$/../MornUIBuilder/plugins">
+      <configuration name="MornPlugins" target-platform="Desktop" main-class="AllInOne" output-file="AllInOne.swf" output-folder="$MODULE_DIR$/../zj2/MornUIBuilder/plugins">
         <dependencies target-player="11.9">
           <entries>
             <entry library-id="37529121-bfe9-4b66-b4ee-67c93faf87e7">
