@@ -15,11 +15,14 @@ public class Plugin extends PluginBase {
     static protected var resTree:Tree;
     static protected var finder:DisplayObjectFinder;
 
+    protected var pluginConfig:XML;
+    protected var pluginName:String;
+
     public function Plugin() {
-        var plugin:String = String(this).slice("[object ".length, -1);
-        var config:XML = new XML(readTxt(pluginPath + "/" + plugin + "/config.xml"));
-        if (config.plugin.autostart == "true") {
-            log("自动启动：" + plugin);
+        pluginName = String(this).slice("[object ".length, -1);
+        pluginConfig = new XML(readTxt(pluginPath + "/" + pluginName + "/config.xml"));
+        if (pluginConfig.plugin.autostart == "true") {
+            log("自动启动：" + pluginName);
             setTimeout(start, 1000);
         }
 
