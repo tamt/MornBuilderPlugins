@@ -40,6 +40,9 @@ public class RememberOpenedPages extends Plugin {
     }
 
     private function openRemberedPages(event:Event = null):void {
+        if (event) {
+            event.currentTarget.removeEventListener(event.type, arguments.callee);
+        }
         var pages:Array = String(pluginConfig.plugin.lastPages).split(";");
         for (var i:int = 0; i < pages.length; i++) {
             var page:String = pages[i];
