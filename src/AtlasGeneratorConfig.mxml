@@ -1,12 +1,29 @@
 <?xml version="1.0"?>
-<!--
-  Created by Administrator on 2014/4/30.
--->
 <mx:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" width="250"
                 height="300">
-    <mx:Label></mx:Label>
-    <mx:TextInput></mx:TextInput>
-    <mx:CheckBox label="裁剪"></mx:CheckBox>
-    <mx:CheckBox label="裁剪"></mx:CheckBox>
-    <mx:CheckBox label="裁剪"></mx:CheckBox>
+    <fx:Script><![CDATA[
+        private var config:Config = new Config();
+        private var sortTypes:Array = [
+            {label: "降序", data: -1},
+            {label: "升序", data: 1},
+            {label: "无序", data: 0}
+        ];
+        ]]></fx:Script>
+    <mx:CheckBox label="裁切透明区域" selected="{config.crop}"></mx:CheckBox>
+    <mx:CheckBox label="保留目录结构" selected="{config.group_by_folder}"></mx:CheckBox>
+    <mx:HBox>
+        <mx:Label text="尺寸排序"></mx:Label>
+        <mx:ComboBox dataProvider="{sortTypes}" selectedItem="{config.sort}"></mx:ComboBox>
+    </mx:HBox>
+    <mx:HBox>
+        <mx:Label text="留白"></mx:Label>
+        <mx:NumericStepper value="{config.padding}"></mx:NumericStepper>
+        <mx:CheckBox label="填充留白区域" selected="{config.fill}"></mx:CheckBox>
+    </mx:HBox>
+    <mx:HBox>
+        <mx:Label text="2次幂"></mx:Label>
+        <mx:CheckBox selected="{config.power_of_2}"></mx:CheckBox>
+    </mx:HBox>
+    <mx:CheckBox label="尝试最优化" selected="{config.optimize}"></mx:CheckBox>
+    <mx:CheckBox label="旋转" selected="{config.no_rotation}"></mx:CheckBox>
 </mx:TitleWindow>
