@@ -1,12 +1,12 @@
 /**
  * Created by 小川 on 2014/5/1.
  */
-package {
+package atlas {
 
 /**
  * http://gc.codehum.com/p/python-texture-atlas-generator/
  */
-public class Config {
+public class Setting {
 
     public var help:Boolean;
     public var verbose:Boolean;

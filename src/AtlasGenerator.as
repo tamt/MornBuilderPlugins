@@ -4,6 +4,8 @@
  * Time: 下午6:57
  */
 package {
+import atlas.AtlasGeneratorConfig;
+
 import flash.events.ProgressEvent;
 import flash.filesystem.File;
 
@@ -25,7 +27,7 @@ public class AtlasGenerator extends Plugin {
             var config:AtlasGeneratorConfig = new AtlasGeneratorConfig();
             PopUpManager.addPopUp(config, builderMain);
             PopUpManager.centerPopUp(config);
-//            alert(pluginName, "你确定要生成atlas吗？", Alert.OK | Alert.CANCEL, confirmGenerate);
+            alert(pluginName, "你确定要生成atlas吗？", Alert.OK | Alert.CANCEL, confirmGenerate);
         } else {
             alert(pluginName, "找不到tagen.py");
         }

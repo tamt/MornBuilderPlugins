@@ -2,14 +2,14 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="MornPlugins">
     <configurations>
-      <configuration name="MornPlugins" target-platform="Desktop" main-class="AllInOne" output-file="AllInOne.swf" output-folder="$MODULE_DIR$/../zj2/MornUIBuilder/plugins">
+      <configuration name="MornPlugins" target-platform="Desktop" main-class="AllInOneApp" output-file="AllInOne.swf" output-folder="$MODULE_DIR$/../zj2/MornUIBuilder/plugins">
         <dependencies target-player="11.9">
           <entries>
             <entry library-id="37529121-bfe9-4b66-b4ee-67c93faf87e7">
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="flex_sdk_4.6.0.23201B" />
+          <sdk name="flex sdk 4.6" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop package-file-name="MornPlugins" />
@@ -24,8 +24,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/asset" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/testSrc" isTestSource="true" />
     </content>
-    <orderEntry type="jdk" jdkName="flex_sdk_4.6.0.23201B" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="flex sdk 4.6" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
