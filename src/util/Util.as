@@ -28,5 +28,15 @@ public class Util {
 
         return null;
     }
+
+    static public function power2(value:uint):uint {
+        var x:uint = 1;
+        var i:uint = 0;
+        while (x < value) {
+            x= (2 << ++i);
+        }
+
+        return i;
+    }
 }
 }

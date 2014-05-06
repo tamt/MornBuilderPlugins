@@ -7,6 +7,5 @@
 		<shortcut ctrl="true">123</shortcut>
 		<intro>作者：itamt@qq.com，生成atlas。</intro>
         <python>C:/Python27/python.exe</python>
-        <texturesize>2600</texturesize>
 	</plugin>
 </root>

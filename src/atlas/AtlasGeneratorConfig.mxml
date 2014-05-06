@@ -1,95 +1,132 @@
 <?xml version="1.0"?>
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
-               xmlns:s="library://ns.adobe.com/flex/spark" title="导出atlas">
+               xmlns:s="library://ns.adobe.com/flex/spark" title="导出atlas"
+               creationComplete="creationCompleteHandler(event)">
     <s:layout>
         <s:VerticalLayout paddingTop="10" paddingRight="10" paddingLeft="10" paddingBottom="10">
         </s:VerticalLayout>
     </s:layout>
     <fx:Script><![CDATA[
-        import morn.editor.PluginBase;
+        import mx.binding.utils.BindingUtils;
+        import mx.events.FlexEvent;
 
-        private var setting:Setting = new Setting();
+        import util.Util;
+
+        [Bindable]
+        public var setting:Setting = new Setting();
 
         private function confirmGenerate(event:MouseEvent):void {
-            //确定生成atlas图
-            var xml:XML = describeType(setting);
-            var list:XMLList = xml..accessor;
-            var cmd:String = ""
-            var pType:String;
-            var pName:String;
-            var pValue:*;
-            for each (var accessor:XML in list) {
-                pType = String(accessor.@type);
-                pName = String(accessor.@name);
-                pValue = setting[pName];
-                if (pType == "Boolean") {
-                    if (pValue == true) {
-                        cmd += "--" + pName + " ";
-                    }
-                } else {
-                    cmd += "--" + pName + " " + pValue;
-                }
-            }
+            dispatchEvent(new Event("ok"));
+        }
 
-            PluginBase.log(cmd);
+        private function creationCompleteHandler(event:FlexEvent):void {
+            texture.value = setting.texture;
+
+            BindingUtils.bindSetter(changeSettingSort, sort, "selectedIndex");
+            BindingUtils.bindSetter(togglePowerOf2, powerOf2, "selected");
+        }
+
+        private function changeSettingTexture(event:Event):void {
+            if (setting.power_of_2) {
+                setting.texture = 2 << texture.value;
+            } else {
+                setting.texture = texture.value;
+            }
+        }
+
+        private function togglePowerOf2(bool:Boolean):void {
+            if (bool) {
+                var i:uint = Util.power2(texture.value);
+                texture.valueFormatFunction = convertPowerOf2;
+                texture.valueParseFunction = parsePowerOf2;
+                texture.stepSize = 1;
+                texture.maximum = Util.power2(4096);
+                texture.value = i;
+                texture.validateNow();
+            } else {
+                texture.stepSize = 1024;
+                texture.maximum = 4096;
+                texture.valueFormatFunction = null;
+                texture.valueParseFunction = null;
+                texture.value = setting.texture;
+                texture.validateNow();
+            }
+        }
+
+        private function convertPowerOf2(value:uint):String {
+            var display:uint = 2 << value;
+            return String(display);
+        }
+
+        private function parsePowerOf2(str:String):Number {
+            var value:int = Util.power2(parseInt(str));
+            return value;
+        }
+
+        private function changeSettingSort(value:int):void {
+            setting.sort = value - 1;
         }
         ]]></fx:Script>
     <mx:HBox>
         <mx:Label text="尺寸" width="80" textAlign="right"></mx:Label>
-        <s:NumericStepper skinClass="spark.skins.wireframe.NumericStepperSkin"></s:NumericStepper>
+        <s:NumericStepper stepSize="1024" width="60" skinClass="spark.skins.wireframe.NumericStepperSkin"
+                          maximum="4096" minimum="0" change="changeSettingTexture(event)"
+                          id="texture"></s:NumericStepper>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="裁切透明区域" width="80" textAlign="right"></mx:Label>
-        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="{setting.crop}"></s:CheckBox>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.crop}"></s:CheckBox>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="保留目录结构" width="80" textAlign="right"></mx:Label>
-        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="{setting.group_by_folder}"></s:CheckBox>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.group_by_folder}"></s:CheckBox>
+    </mx:HBox>
+    <mx:HBox>
+        <mx:Label text="平级输出" width="80" textAlign="right"></mx:Label>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.flat}"></s:CheckBox>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="尺寸排序" width="80" textAlign="right"></mx:Label>
-        <s:ComboBox skinClass="spark.skins.wireframe.ComboBoxSkin" labelField="label" width="60">
-            <s:dataProvider>
-                <s:ArrayList>
-                    <fx:Object label="降序" data="-1"></fx:Object>
-                    <fx:Object label="升序" data="1"></fx:Object>
-                    <fx:Object label="无序" data="0"></fx:Object>
-                </s:ArrayList>
-            </s:dataProvider>
-        </s:ComboBox>
+        <s:DropDownList skinClass="spark.skins.wireframe.DropDownListSkin" id="sort" width="60"
+                        selectedIndex="{setting.sort + 1}">
+            <s:ArrayList>
+                <fx:Object label="降序" data="-1"></fx:Object>
+                <fx:Object label="无序" data="0"></fx:Object>
+                <fx:Object label="升序" data="1"></fx:Object>
+            </s:ArrayList>
+        </s:DropDownList>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="贴图间留白" width="80" textAlign="right"></mx:Label>
         <s:NumericStepper skinClass="spark.skins.wireframe.NumericStepperSkin"
-                          value="{setting.padding}"></s:NumericStepper>
+                          value="@{setting.padding}"></s:NumericStepper>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="填充留白区域" width="80" textAlign="right"></mx:Label>
-        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="{setting.fill}"></s:CheckBox>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.fill}"></s:CheckBox>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="2次幂" width="80" textAlign="right"></mx:Label>
-        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="{setting.power_of_2}"></s:CheckBox>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" id="powerOf2"
+                    selected="@{setting.power_of_2}"></s:CheckBox>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="尝试最优化" width="80" textAlign="right"></mx:Label>
-        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="{setting.optimize}"></s:CheckBox>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.optimize}"></s:CheckBox>
     </mx:HBox>
     <mx:HBox>
-        <mx:Label text="旋转" width="80" textAlign="right"></mx:Label>
-        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="{setting.optimize}"></s:CheckBox>
+        <mx:Label text="不旋转" width="80" textAlign="right"></mx:Label>
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.no_rotation}"></s:CheckBox>
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="坐标输出格式" width="80" textAlign="right"></mx:Label>
-        <s:ComboBox skinClass="spark.skins.wireframe.ComboBoxSkin" labelField="label" width="60">
-            <s:dataProvider>
-                <s:ArrayList>
-                    <fx:String>xml</fx:String>
-                    <fx:String>json</fx:String>
-                    <fx:String>csv</fx:String>
-                </s:ArrayList>
-            </s:dataProvider>
-        </s:ComboBox>
+        <s:DropDownList skinClass="spark.skins.wireframe.DropDownListSkin" selectedItem="@{setting.info}" width="60">
+            <mx:ArrayCollection>
+                <fx:String>xml</fx:String>
+                <fx:String>json</fx:String>
+                <fx:String>csv</fx:String>
+            </mx:ArrayCollection>
+        </s:DropDownList>
     </mx:HBox>
     <mx:HBox horizontalAlign="right" width="100%">
         <s:Button skinClass="spark.skins.wireframe.ButtonSkin" label="确定" click="confirmGenerate(event)"></s:Button>

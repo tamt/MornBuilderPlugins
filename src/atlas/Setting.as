@@ -14,23 +14,23 @@ public class Setting {
     [Bindable]
     public var texture:uint = 1024;
     [Bindable]
-    public var group_by_folder:Boolean;
+    public var group_by_folder:Boolean = true;
     [Bindable]
-    public var flat:Boolean;
+    public var flat:Boolean = true;
     [Bindable]
-    public var sort:uint;
+    public var sort:int = -1;
     [Bindable]
     public var padding:uint;
     [Bindable]
     public var fill:Boolean;
     [Bindable]
-    public var crop:Boolean;
+    public var crop:Boolean = true;
     [Bindable]
     public var power_of_2:Boolean;
     [Bindable]
     public var optimize:Boolean;
     [Bindable]
-    public var info:String;
+    public var info:String = "csv";
     [Bindable]
     public var no_rotation:Boolean;
 

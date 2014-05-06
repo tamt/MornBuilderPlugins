@@ -6,12 +6,14 @@
 package {
 import atlas.AtlasGeneratorConfig;
 
+import flash.events.Event;
 import flash.events.ProgressEvent;
 import flash.filesystem.File;
+import flash.utils.describeType;
 
 import morn.editor.Plugin;
+import morn.editor.PluginBase;
 
-import mx.controls.Alert;
 import mx.managers.PopUpManager;
 
 /**
@@ -20,36 +22,67 @@ import mx.managers.PopUpManager;
 public class AtlasGenerator extends Plugin {
 
     private var python:File;
+    private static var configer:AtlasGeneratorConfig;
 
     override public function start():void {
         python = new File(pluginPath + "/" + pluginName + "/tagen.py");
         if (python.exists) {
-            var config:AtlasGeneratorConfig = new AtlasGeneratorConfig();
-            PopUpManager.addPopUp(config, builderMain);
-            PopUpManager.centerPopUp(config);
-            alert(pluginName, "你确定要生成atlas吗？", Alert.OK | Alert.CANCEL, confirmGenerate);
+            if (!configer) {
+                configer = new AtlasGeneratorConfig();
+                configer.addEventListener("close", removeConfig);
+                configer.addEventListener("ok", confirmGenerate);
+            }
+            PopUpManager.addPopUp(configer, builderMain);
+            PopUpManager.centerPopUp(configer);
         } else {
             alert(pluginName, "找不到tagen.py");
         }
     }
 
+    private function removeConfig(event:Event = null):void {
+        PopUpManager.removePopUp(configer);
+    }
+
     private function confirmGenerate(e:Object):void {
-        if (e.detail == Alert.OK) {
-            var cmd:String = pluginConfig.python + " " + python.nativePath + " -t " + pluginConfig.texturesize + " -c " + workPath + "/morn/assets/" + " " + workPath + "/morn/atlas/";
-            exeCmds([cmd], onDeleteComplete, onDeleteProgress, onDeleteError);
+        //确定生成atlas图
+        var xml:XML = describeType(configer.setting);
+        var list:XMLList = xml..accessor;
+        var options:String = "";
+        var pType:String;
+        var pName:String;
+        var pValue:*;
+        for each (var accessor:XML in list) {
+            pType = String(accessor.@type);
+            pName = String(accessor.@name);
+            pValue = configer.setting[pName];
+            if (pType == "Boolean") {
+                if (pValue == true) {
+                    options += (options ? " " : "") + "--" + pName + " ";
+                }
+            } else if (pValue != null) {
+                options += (options ? " " : "") + "--" + pName + " " + pValue;
+            }
         }
+
+        var cmd:String = pluginConfig.plugin.python + " " + python.nativePath + " " + options + " " + workPath + "/morn/assets/" + " " + workPath + "/morn/atlas/";
+        PluginBase.log("python path:" + pluginConfig.plugin.python);
+        PluginBase.log(cmd);
+
+        PluginBase.showWaiting(pluginName, "正在生成atlas");
+        exeCmds([cmd], onGenerateComplete, onGenerateProgress, onGenerateError);
     }
 
-    private function onDeleteProgress(e:ProgressEvent):void {
+    private function onGenerateProgress(e:ProgressEvent):void {
     }
 
-    private function onDeleteError(...args):void {
-        log("出错");
+    private function onGenerateError(...args):void {
+        alert(pluginName, String(args));
+        PluginBase.closeWaiting();
     }
 
-    private function onDeleteComplete():void {
-        //TODO 删除成功是否现在刷新资源
-        log("完成");
+    private function onGenerateComplete(...args):void {
+        PluginBase.closeWaiting();
+        alert(pluginName, "生成atlas完毕");
     }
 
 }
