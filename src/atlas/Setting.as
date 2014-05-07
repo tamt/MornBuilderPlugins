@@ -33,6 +33,14 @@ public class Setting {
     public var info:String = "csv";
     [Bindable]
     public var no_rotation:Boolean;
+    [Bindable]
+    public var clean_swf:Boolean = true;
+
+    //atlas输出目录
+    public var outfolder:String;
+
+    //资源图片目录
+    public var infolder:String;
 
 }
 }

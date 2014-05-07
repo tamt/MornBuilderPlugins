@@ -22,6 +22,7 @@ import mx.managers.PopUpManager;
 public class AtlasGenerator extends Plugin {
 
     private var python:File;
+
     private static var configer:AtlasGeneratorConfig;
 
     override public function start():void {
@@ -64,7 +65,7 @@ public class AtlasGenerator extends Plugin {
             }
         }
 
-        var cmd:String = pluginConfig.plugin.python + " " + python.nativePath + " " + options + " " + workPath + "/morn/assets/" + " " + workPath + "/morn/atlas/";
+        var cmd:String = pluginConfig.plugin.python + " " + python.nativePath + " " + options + " " + configer.setting.infolder + " " + configer.setting.outfolder;
         PluginBase.log("python path:" + pluginConfig.plugin.python);
         PluginBase.log(cmd);
 
@@ -76,7 +77,7 @@ public class AtlasGenerator extends Plugin {
     }
 
     private function onGenerateError(...args):void {
-        alert(pluginName, String(args));
+        alert(pluginName, "过程中出错，详细信息请看log(Ctrl+L)");
         PluginBase.closeWaiting();
     }
 

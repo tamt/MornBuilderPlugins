@@ -7,6 +7,8 @@
         </s:VerticalLayout>
     </s:layout>
     <fx:Script><![CDATA[
+        import morn.editor.PluginBase;
+
         import mx.binding.utils.BindingUtils;
         import mx.events.FlexEvent;
 
@@ -20,13 +22,19 @@
         }
 
         private function creationCompleteHandler(event:FlexEvent):void {
+
+            var builder:XML = XML(PluginBase.readTxt(PluginBase.appPath + "/builder.xml"));
+            var project:XML = XML(PluginBase.readTxt(builder.lastProject));
+            setting.outfolder = PluginBase.workPath + "/" + project.resExportPath;
+            setting.infolder = PluginBase.workPath + "/morn/assets/";
+
             texture.value = setting.texture;
 
             BindingUtils.bindSetter(changeSettingSort, sort, "selectedIndex");
             BindingUtils.bindSetter(togglePowerOf2, powerOf2, "selected");
         }
 
-        private function changeSettingTexture(event:Event):void {
+        private function changeSettingTexture(event:Event = null):void {
             if (setting.power_of_2) {
                 setting.texture = 2 << texture.value;
             } else {
@@ -42,14 +50,13 @@
                 texture.stepSize = 1;
                 texture.maximum = Util.power2(4096);
                 texture.value = i;
-                texture.validateNow();
+                changeSettingTexture();
             } else {
-                texture.stepSize = 1024;
+                texture.stepSize = 1;
                 texture.maximum = 4096;
                 texture.valueFormatFunction = null;
                 texture.valueParseFunction = null;
                 texture.value = setting.texture;
-                texture.validateNow();
             }
         }
 
@@ -69,7 +76,7 @@
         ]]></fx:Script>
     <mx:HBox>
         <mx:Label text="尺寸" width="80" textAlign="right"></mx:Label>
-        <s:NumericStepper stepSize="1024" width="60" skinClass="spark.skins.wireframe.NumericStepperSkin"
+        <s:NumericStepper width="60" skinClass="spark.skins.wireframe.NumericStepperSkin"
                           maximum="4096" minimum="0" change="changeSettingTexture(event)"
                           id="texture"></s:NumericStepper>
     </mx:HBox>
@@ -120,15 +127,17 @@
     </mx:HBox>
     <mx:HBox>
         <mx:Label text="坐标输出格式" width="80" textAlign="right"></mx:Label>
-        <s:DropDownList skinClass="spark.skins.wireframe.DropDownListSkin" selectedItem="@{setting.info}" width="60">
+        <s:DropDownList skinClass="spark.skins.wireframe.DropDownListSkin" selectedItem="@{setting.info}" width="70">
             <mx:ArrayCollection>
                 <fx:String>xml</fx:String>
                 <fx:String>json</fx:String>
                 <fx:String>csv</fx:String>
+                <fx:String>morn</fx:String>
             </mx:ArrayCollection>
         </s:DropDownList>
     </mx:HBox>
-    <mx:HBox horizontalAlign="right" width="100%">
+    <mx:HBox horizontalAlign="right" width="100%" paddingTop="10">
+        <s:CheckBox skinClass="spark.skins.wireframe.CheckBoxSkin" selected="@{setting.clean_swf}" label="删除旧有的swf资源"></s:CheckBox>
         <s:Button skinClass="spark.skins.wireframe.ButtonSkin" label="确定" click="confirmGenerate(event)"></s:Button>
     </mx:HBox>
 </s:TitleWindow>
