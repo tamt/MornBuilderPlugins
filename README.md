@@ -15,6 +15,7 @@ MornBuilderPlugins
 - 定位页面和资源(ScrollFromSource)
 - 预览页面在iPhone中的尺寸(iPhonePreview)
 - 显示上一次打开的页面(RememberOpenedPages)
+- 生成atlas贴图资源(AtlasGenerator)
 
 兼容MornBuilder版本
 ==================
@@ -98,5 +99,30 @@ MornBuilderPlugins
 ##RememberOpenedPages
 
 在MornBuilder启动后，显示上一次打开的页面。
+
+##AtlasGenerator
+
+    快捷键 Ctrl+F12
+
+__该插件使用python的[atlas生成脚本](http://gc.codehum.com/p/python-texture-atlas-generator/)，请安装[python](https://www.python.org/downloads/windows/)。然后在AtlasGenerator/config.xml配置python的路径。__
+
+把图片资源生成atlas贴图（.png），以及贴图信息（.morn）。
+每个MornBuilder资源目录会生成为一张atlas图，例如：
+
+![生成的atlas图片](/doc/Atlas.jpg)
+
+贴图信息存储在对应的.morn文件中，格式为:
+
+    资源名;x1;y1;x2;y2;旋转
+例如：
+
+![生成的atlas图片](/doc/AtlasInfo.jpg)
+
+生成的atlas存放在MornBuilder导出资源（swf）的目录中。
+
+你可以对生成器进行一些简单的配置，如下图：
+
+![atlas生成器设置](/doc/AtlasGenerator.jpg)
+
 
 
