@@ -104,7 +104,7 @@ MornBuilderPlugins
 
     快捷键 Ctrl+F12
 
-__该插件使用python的[atlas生成脚本](http://gc.codehum.com/p/python-texture-atlas-generator/)，请安装[python](https://www.python.org/downloads/windows/)。然后在AtlasGenerator/config.xml配置python的路径。__
+__请先安装[python](https://www.python.org/downloads/windows/)。然后在AtlasGenerator/config.xml配置python的路径。__
 
 把图片资源生成atlas贴图（.png），以及贴图信息（.morn）。
 每个MornBuilder资源目录会生成为一张atlas图，例如：
@@ -123,6 +123,8 @@ __该插件使用python的[atlas生成脚本](http://gc.codehum.com/p/python-tex
 你可以对生成器进行一些简单的配置，如下图：
 
 ![atlas生成器设置](/doc/AtlasGenerator.jpg)
+
+配置说明请参照[python-texture-atlas-generator](http://gc.codehum.com/p/python-texture-atlas-generator/)，
 
 
 
