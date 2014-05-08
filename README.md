@@ -124,7 +124,45 @@ __请先安装[python](https://www.python.org/downloads/windows/)。然后在Atl
 
 ![atlas生成器设置](/doc/AtlasGenerator.jpg)
 
-配置说明请参照[python-texture-atlas-generator](http://gc.codehum.com/p/python-texture-atlas-generator/)，
+配置说明请参照[python-texture-atlas-generator](http://gc.codehum.com/p/python-texture-atlas-generator/)。
 
+###在MornUI中使用导出的atlas图片
+
+AtlasGenerator会把原始图像的信息存储在文件中，文件格式可以是json、csv、xml、morn，其中morn保存了每个资源的名称（例如：`png.login.btn`），而其它三种保存了资源的完整路径。可以很容易根据这些信息从atlas中再取回原始图像。<br>
+得益于MornUI的设计，只要重载`App.asset`的`getBitmapData`、`hasClass`方法就可以修改MornUI使用位图资源的方式。比如：
+
+    override public function hasClass(name:String):Boolean {
+        if (texture[name] || atlas[name]) {
+            return true;
+        }
+        return super.hasClass(name);
+    }
+
+    override public function getBitmapData(name:String, cache:Boolean = true):BitmapData {
+        if (!texture.hasOwnProperty(name) || !cache) {
+            if (atlas[name]) {
+                var info:AtlasTextureInfo = atlas[name];
+                var bmd:BitmapData = new BitmapData(
+                        info.rotated ? info.rect.height : info.rect.width,
+                        info.rotated ? info.rect.width : info.rect.height,
+                        true, 0);
+                var mtx:Matrix = new Matrix();
+                if (info.rotated) mtx.rotate(Math.PI / 2);
+                var tl:Point = mtx.transformPoint(info.rect.topLeft);
+                var br:Point = mtx.transformPoint(info.rect.bottomRight);
+                rect.top = Math.min(tl.y, br.y);
+                rect.left = Math.min(tl.x, br.x);
+                rect.right = Math.max(tl.x, br.x);
+                rect.bottom = Math.max(tl.y, br.y);
+                mtx.translate(-rect.x, -rect.y);
+                bmd.draw(info.source, mtx);
+
+                if (!cache)return bmd;
+                if (!texture.hasOwnProperty(name))texture[name] = bmd;
+            }
+        }
+        if (texture[name])return texture[name];
+        return super.getBitmapData(name, cache);
+    }
 
 
